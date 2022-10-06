@@ -1,0 +1,14 @@
+{
+  "resourceName": "study",
+  "policyUUID": "348715a5",
+  "bucketName": "stydya22f326a0bf34bbb988d100ff4db4c63",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
