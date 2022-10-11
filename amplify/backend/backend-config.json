@@ -46,10 +46,27 @@
     }
   },
   "storage": {
-    "study": {
-      "service": "S3",
+    "dynamo2d434a88": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "dynamo2d434a88Triggerb6a3918b": {
+      "service": "Lambda",
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "dynamo2d434a88",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,20 @@
+{
+  "resourceName": "dynamo2d434a88",
+  "tableName": "dynamo2d434a88",
+  "partitionKey": {
+    "fieldName": "pulse",
+    "fieldType": "number"
+  },
+  "gsi": [
+    {
+      "name": "pulseCycle",
+      "partitionKey": {
+        "fieldName": "pulse",
+        "fieldType": "number"
+      }
+    }
+  ],
+  "triggerFunctions": [
+    "dynamo2d434a88Triggerb6a3918b"
+  ]
+}

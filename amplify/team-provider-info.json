@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "study2a07187f": {}
+      },
+      "function": {
+        "dynamo2d434a88Triggerb6a3918b": {
+          "deploymentBucketName": "amplify-study-dev-204041-deployment",
+          "s3Key": "amplify-builds/dynamo2d434a88Triggerb6a3918b-7571325176693134594b-build.zip"
+        }
       }
     }
   }
