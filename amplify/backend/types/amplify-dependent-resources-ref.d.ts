@@ -1,24 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
-    "auth": {
-        "study2a07187f": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
-            "UserPoolId": "string",
-            "UserPoolArn": "string",
-            "UserPoolName": "string",
-            "AppClientIDWeb": "string",
-            "AppClientID": "string"
-        }
-    },
     "api": {
-        "stydy": {
+        "study": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "storage": {
-        "dynamo2d434a88": {
+        "dynamoed81fa11": {
             "Name": "string",
             "Arn": "string",
             "StreamArn": "string",
@@ -28,11 +17,23 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "dynamo2d434a88Triggerb6a3918b": {
+        "study7c9c3b15": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
-            "LambdaExecutionRole": "string"
+            "LambdaExecutionRole": "string",
+            "CloudWatchEventRule": "string"
+        }
+    },
+    "auth": {
+        "study4ed6c8bf": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
+            "UserPoolId": "string",
+            "UserPoolArn": "string",
+            "UserPoolName": "string",
+            "AppClientIDWeb": "string",
+            "AppClientID": "string"
         }
     }
 }

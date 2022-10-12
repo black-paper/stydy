@@ -2,26 +2,27 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
-    "env": {
-      "Type": "String"
-    },
-    "storagedynamo2d434a88Name": {
+    "CloudWatchRule": {
       "Type": "String",
-      "Default": "storagedynamo2d434a88Name"
-    },
-    "storagedynamo2d434a88Arn": {
-      "Type": "String",
-      "Default": "storagedynamo2d434a88Arn"
-    },
-    "storagedynamo2d434a88StreamArn": {
-      "Type": "String",
-      "Default": "storagedynamo2d434a88Arn"
+      "Default": "NONE",
+      "Description": " Schedule Expression"
     },
     "deploymentBucketName": {
       "Type": "String"
     },
+    "env": {
+      "Type": "String"
+    },
     "s3Key": {
       "Type": "String"
+    },
+    "apistudyGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apistudyGraphQLAPIIdOutput"
+    },
+    "apistudyGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apistudyGraphQLAPIEndpointOutput"
     }
   },
   "Conditions": {
@@ -42,16 +43,24 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
+        },
         "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "dynamo2d434a88Triggerb6a3918b",
+            "study7c9c3b15",
             {
               "Fn::Join": [
                 "",
                 [
-                  "dynamo2d434a88Triggerb6a3918b",
+                  "study7c9c3b15",
                   "-",
                   {
                     "Ref": "env"
@@ -65,6 +74,9 @@
           "Variables": {
             "ENV": {
               "Ref": "env"
+            },
+            "REGION": {
+              "Ref": "AWS::Region"
             }
           }
         },
@@ -75,15 +87,8 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Timeout": 25,
-        "Code": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
-          }
-        }
+        "Layers": [],
+        "Timeout": 25
       }
     },
     "LambdaExecutionRole": {
@@ -92,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "dynamo2d434a88LambdaRoleb6a3918b",
+            "studyLambdaRolecc5672ad",
             {
               "Fn::Join": [
                 "",
                 [
-                  "dynamo2d434a88LambdaRoleb6a3918b",
+                  "studyLambdaRolecc5672ad",
                   "-",
                   {
                     "Ref": "env"
@@ -168,13 +173,13 @@
         }
       }
     },
-    "dynamo2d434a88TriggerPolicy": {
+    "LambdaTriggerPolicyTodo": {
       "DependsOn": [
         "LambdaExecutionRole"
       ],
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "lambda-trigger-policy-dynamo2d434a88",
+        "PolicyName": "amplify-lambda-execution-policy-Todo",
         "Roles": [
           {
             "Ref": "LambdaExecutionRole"
@@ -191,26 +196,29 @@
                 "dynamodb:GetShardIterator",
                 "dynamodb:ListStreams"
               ],
-              "Resource": [
-                {
-                  "Ref": "storagedynamo2d434a88StreamArn"
+              "Resource": {
+                "Fn::ImportValue": {
+                  "Fn::Sub": "${apistudyGraphQLAPIIdOutput}:GetAtt:TodoTable:StreamArn"
                 }
-              ]
+              }
             }
           ]
         }
       }
     },
-    "dynamo2d434a88Trigger": {
+    "LambdaEventSourceMappingTodo": {
       "Type": "AWS::Lambda::EventSourceMapping",
       "DependsOn": [
-        "dynamo2d434a88TriggerPolicy"
+        "LambdaTriggerPolicyTodo",
+        "LambdaExecutionRole"
       ],
       "Properties": {
         "BatchSize": 100,
         "Enabled": true,
         "EventSourceArn": {
-          "Ref": "storagedynamo2d434a88StreamArn"
+          "Fn::ImportValue": {
+            "Fn::Sub": "${apistudyGraphQLAPIIdOutput}:GetAtt:TodoTable:StreamArn"
+          }
         },
         "FunctionName": {
           "Fn::GetAtt": [
@@ -219,6 +227,45 @@
           ]
         },
         "StartingPosition": "LATEST"
+      }
+    },
+    "CloudWatchEvent": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Schedule rule for Lambda",
+        "ScheduleExpression": {
+          "Ref": "CloudWatchRule"
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "LambdaFunction",
+                "Arn"
+              ]
+            },
+            "Id": {
+              "Ref": "LambdaFunction"
+            }
+          }
+        ]
+      }
+    },
+    "PermissionForEventsToInvokeLambda": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "LambdaFunction"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "CloudWatchEvent",
+            "Arn"
+          ]
+        }
       }
     }
   },
@@ -244,6 +291,11 @@
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
+      }
+    },
+    "CloudWatchEventRule": {
+      "Value": {
+        "Ref": "CloudWatchEvent"
       }
     }
   }

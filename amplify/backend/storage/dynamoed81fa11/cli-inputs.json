@@ -1,0 +1,10 @@
+{
+  "resourceName": "dynamoed81fa11",
+  "tableName": "dynamoed81fa11",
+  "partitionKey": {
+    "fieldName": "pulse",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
