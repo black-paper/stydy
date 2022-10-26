@@ -2,18 +2,26 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateTodoInput = {
+export type CreateFoodInput = {
   id?: string | null,
   name: string,
-  description?: string | null,
+  energy: string,
+  protein: string,
+  carbohydrate: string,
+  DietaryFiber: string,
+  checked: boolean,
 };
 
-export type ModelTodoConditionInput = {
+export type ModelFoodConditionInput = {
   name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelTodoConditionInput | null > | null,
-  or?: Array< ModelTodoConditionInput | null > | null,
-  not?: ModelTodoConditionInput | null,
+  energy?: ModelStringInput | null,
+  protein?: ModelStringInput | null,
+  carbohydrate?: ModelStringInput | null,
+  DietaryFiber?: ModelStringInput | null,
+  checked?: ModelBooleanInput | null,
+  and?: Array< ModelFoodConditionInput | null > | null,
+  or?: Array< ModelFoodConditionInput | null > | null,
+  not?: ModelFoodConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,32 +64,51 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Todo = {
-  __typename: "Todo",
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Food = {
+  __typename: "Food",
   id: string,
   name: string,
-  description?: string | null,
+  energy: string,
+  protein: string,
+  carbohydrate: string,
+  DietaryFiber: string,
+  checked: boolean,
   createdAt: string,
   updatedAt: string,
 };
 
-export type UpdateTodoInput = {
+export type UpdateFoodInput = {
   id: string,
   name?: string | null,
-  description?: string | null,
+  energy?: string | null,
+  protein?: string | null,
+  carbohydrate?: string | null,
+  DietaryFiber?: string | null,
+  checked?: boolean | null,
 };
 
-export type DeleteTodoInput = {
+export type DeleteFoodInput = {
   id: string,
 };
 
-export type ModelTodoFilterInput = {
+export type ModelFoodFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelTodoFilterInput | null > | null,
-  or?: Array< ModelTodoFilterInput | null > | null,
-  not?: ModelTodoFilterInput | null,
+  energy?: ModelStringInput | null,
+  protein?: ModelStringInput | null,
+  carbohydrate?: ModelStringInput | null,
+  DietaryFiber?: ModelStringInput | null,
+  checked?: ModelBooleanInput | null,
+  and?: Array< ModelFoodFilterInput | null > | null,
+  or?: Array< ModelFoodFilterInput | null > | null,
+  not?: ModelFoodFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -100,89 +127,109 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection",
-  items:  Array<Todo | null >,
+export type ModelFoodConnection = {
+  __typename: "ModelFoodConnection",
+  items:  Array<Food | null >,
   nextToken?: string | null,
 };
 
-export type CreateTodoMutationVariables = {
-  input: CreateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type CreateFoodMutationVariables = {
+  input: CreateFoodInput,
+  condition?: ModelFoodConditionInput | null,
 };
 
-export type CreateTodoMutation = {
-  createTodo?:  {
-    __typename: "Todo",
+export type CreateFoodMutation = {
+  createFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateTodoMutationVariables = {
-  input: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type UpdateFoodMutationVariables = {
+  input: UpdateFoodInput,
+  condition?: ModelFoodConditionInput | null,
 };
 
-export type UpdateTodoMutation = {
-  updateTodo?:  {
-    __typename: "Todo",
+export type UpdateFoodMutation = {
+  updateFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteTodoMutationVariables = {
-  input: DeleteTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type DeleteFoodMutationVariables = {
+  input: DeleteFoodInput,
+  condition?: ModelFoodConditionInput | null,
 };
 
-export type DeleteTodoMutation = {
-  deleteTodo?:  {
-    __typename: "Todo",
+export type DeleteFoodMutation = {
+  deleteFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type GetTodoQueryVariables = {
+export type GetFoodQueryVariables = {
   id: string,
 };
 
-export type GetTodoQuery = {
-  getTodo?:  {
-    __typename: "Todo",
+export type GetFoodQuery = {
+  getFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
+export type ListFoodsQueryVariables = {
+  filter?: ModelFoodFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTodosQuery = {
-  listTodos?:  {
-    __typename: "ModelTodoConnection",
+export type ListFoodsQuery = {
+  listFoods?:  {
+    __typename: "ModelFoodConnection",
     items:  Array< {
-      __typename: "Todo",
+      __typename: "Food",
       id: string,
       name: string,
-      description?: string | null,
+      energy: string,
+      protein: string,
+      carbohydrate: string,
+      DietaryFiber: string,
+      checked: boolean,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -190,34 +237,46 @@ export type ListTodosQuery = {
   } | null,
 };
 
-export type OnCreateTodoSubscription = {
-  onCreateTodo?:  {
-    __typename: "Todo",
+export type OnCreateFoodSubscription = {
+  onCreateFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateTodoSubscription = {
-  onUpdateTodo?:  {
-    __typename: "Todo",
+export type OnUpdateFoodSubscription = {
+  onUpdateFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteTodoSubscription = {
-  onDeleteTodo?:  {
-    __typename: "Todo",
+export type OnDeleteFoodSubscription = {
+  onDeleteFood?:  {
+    __typename: "Food",
     id: string,
     name: string,
-    description?: string | null,
+    energy: string,
+    protein: string,
+    carbohydrate: string,
+    DietaryFiber: string,
+    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,

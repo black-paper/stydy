@@ -2,43 +2,55 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createFood = /* GraphQL */ `
+  mutation CreateFood(
+    $input: CreateFoodInput!
+    $condition: ModelFoodConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createFood(input: $input, condition: $condition) {
       id
       name
-      description
+      energy
+      protein
+      carbohydrate
+      DietaryFiber
+      checked
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateFood = /* GraphQL */ `
+  mutation UpdateFood(
+    $input: UpdateFoodInput!
+    $condition: ModelFoodConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateFood(input: $input, condition: $condition) {
       id
       name
-      description
+      energy
+      protein
+      carbohydrate
+      DietaryFiber
+      checked
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteFood = /* GraphQL */ `
+  mutation DeleteFood(
+    $input: DeleteFoodInput!
+    $condition: ModelFoodConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteFood(input: $input, condition: $condition) {
       id
       name
-      description
+      energy
+      protein
+      carbohydrate
+      DietaryFiber
+      checked
       createdAt
       updatedAt
     }

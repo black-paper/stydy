@@ -2,28 +2,36 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getFood = /* GraphQL */ `
+  query GetFood($id: ID!) {
+    getFood(id: $id) {
       id
       name
-      description
+      energy
+      protein
+      carbohydrate
+      DietaryFiber
+      checked
       createdAt
       updatedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listFoods = /* GraphQL */ `
+  query ListFoods(
+    $filter: ModelFoodFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listFoods(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
-        description
+        energy
+        protein
+        carbohydrate
+        DietaryFiber
+        checked
         createdAt
         updatedAt
       }
