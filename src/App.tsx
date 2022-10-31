@@ -3,10 +3,10 @@ import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { createFood, deleteFood } from "./graphql/mutations";
 import { listFoods } from "./graphql/queries";
-import { ListFoodsQuery, CreateFoodInput } from "./API";
+import { ListFoodsQuery, CreateFoodInput as Food } from "./API";
 import awsExports from "./aws-exports";
 import { GraphQLResult } from "@aws-amplify/api";
-import { Food } from "./types/food";
+// import { Food } from "./types/food";
 Amplify.configure(awsExports);
 
 const initialState: Food = {
@@ -21,7 +21,7 @@ const initialState: Food = {
 
 const App: React.VFC = () => {
   const [formState, setFormState] = useState(initialState);
-  const [foods, setFoods] = useState<CreateFoodInput[]>([]);
+  const [foods, setFoods] = useState<Food[]>([]);
 
   useEffect(() => {
     fetchFoods();
@@ -37,11 +37,11 @@ const App: React.VFC = () => {
         graphqlOperation(listFoods)
       )) as GraphQLResult<ListFoodsQuery>;
       if (foodData.data?.listFoods?.items) {
-        const foods = foodData.data.listFoods.items as CreateFoodInput[];
+        const foods = foodData.data.listFoods.items as Food[];
         setFoods(foods);
       }
     } catch (err) {
-      console.log("error fetching foods");
+      console.log("error fetching foods", err);
     }
   };
 
@@ -57,31 +57,62 @@ const App: React.VFC = () => {
       ) {
         return;
       }
-      const food: CreateFoodInput = { ...formState };
+      const food: Food = { ...formState };
       setFoods([...foods, food]);
       setFormState(initialState);
       (await API.graphql(
         graphqlOperation(createFood, { input: food })
-      )) as GraphQLResult<CreateFoodInput>;
+      )) as GraphQLResult<Food>;
     } catch (err) {
       console.log("error creating food:", err);
     }
   };
+  // チェクボックスつけたらフラグも立てる
+  const checkboxHandler = (checked: boolean, index: number) => {
+    // indexをもとにフラグたてた後のFood配列を作成
+    const newFoods: Food[] = foods.map((d, i) => {
+      if (i === index) {
+        return {
+          id: d.id,
+          name: d.name,
+          energy: d.energy,
+          protein: d.protein,
+          carbohydrate: d.carbohydrate,
+          DietaryFiber: d.DietaryFiber,
+          checked: checked,
+        } as Food;
+      }
+      return d;
+    });
+    setFoods(newFoods);
+  };
+
   // 食べ物削除機能作る
   const removeFood = async () => {
     try {
       console.log("removeFood!");
+      // チェックフラグ立ってるデータをフィルタリングして
+      const checkFoods = foods.filter((food) => food.checked);
+      // そのデータを除いたデータをStateにセット
+      // フラグ立ってたデータをDynamoDBからも削除
+      checkFoods.map(async (food) => {
+        (await API.graphql(
+          graphqlOperation(deleteFood, { input: food })
+        )) as GraphQLResult<Food>;
+      });
+      // setFoods(foods.filter((food) => !food.checked));
     } catch (err) {
       console.log("error removing food:", err);
     }
   };
+  console.log("render");
   return (
     <div style={styles.container}>
       <h2>Food Manager</h2>
       <input
         onChange={(event) => setInput("id", event.target.value)}
         style={styles.input}
-        value={formState.id}
+        value={formState.id!}
         placeholder="Id: #XXX"
       />
       <input
@@ -122,7 +153,11 @@ const App: React.VFC = () => {
       </button>
       {foods.map((food, index) => (
         <div key={food.id ? food.id : index} style={styles.food}>
-          <input type={"checkbox"} checked={food.checked} />
+          <input
+            type={"checkbox"}
+            checked={food.checked}
+            onChange={() => checkboxHandler(!food.checked, index)}
+          />
           <p style={styles.foodId}>Id: {food.id}</p>
           <p style={styles.foodName}>Name: {food.name}</p>
           <p style={styles.foodData}>エネルギー: {food.energy}kcal</p>

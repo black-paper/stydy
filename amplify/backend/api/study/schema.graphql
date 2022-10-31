@@ -12,3 +12,7 @@ type Food @model {
   DietaryFiber: String!
   checked: Boolean!
 }
+
+type User {
+  name: String!
+}
