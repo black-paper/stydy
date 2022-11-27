@@ -10,7 +10,6 @@ type Food @model {
   protein: String!
   carbohydrate: String!
   DietaryFiber: String!
-  checked: Boolean!
 }
 
 type User {

@@ -9,7 +9,6 @@ export type CreateFoodInput = {
   protein: string,
   carbohydrate: string,
   DietaryFiber: string,
-  checked: boolean,
 };
 
 export type ModelFoodConditionInput = {
@@ -18,7 +17,6 @@ export type ModelFoodConditionInput = {
   protein?: ModelStringInput | null,
   carbohydrate?: ModelStringInput | null,
   DietaryFiber?: ModelStringInput | null,
-  checked?: ModelBooleanInput | null,
   and?: Array< ModelFoodConditionInput | null > | null,
   or?: Array< ModelFoodConditionInput | null > | null,
   not?: ModelFoodConditionInput | null,
@@ -64,13 +62,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
 export type Food = {
   __typename: "Food",
   id: string,
@@ -79,7 +70,6 @@ export type Food = {
   protein: string,
   carbohydrate: string,
   DietaryFiber: string,
-  checked: boolean,
   createdAt: string,
   updatedAt: string,
 };
@@ -91,7 +81,6 @@ export type UpdateFoodInput = {
   protein?: string | null,
   carbohydrate?: string | null,
   DietaryFiber?: string | null,
-  checked?: boolean | null,
 };
 
 export type DeleteFoodInput = {
@@ -105,7 +94,6 @@ export type ModelFoodFilterInput = {
   protein?: ModelStringInput | null,
   carbohydrate?: ModelStringInput | null,
   DietaryFiber?: ModelStringInput | null,
-  checked?: ModelBooleanInput | null,
   and?: Array< ModelFoodFilterInput | null > | null,
   or?: Array< ModelFoodFilterInput | null > | null,
   not?: ModelFoodFilterInput | null,
@@ -147,7 +135,6 @@ export type CreateFoodMutation = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -167,7 +154,6 @@ export type UpdateFoodMutation = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -187,7 +173,6 @@ export type DeleteFoodMutation = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -206,7 +191,6 @@ export type GetFoodQuery = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -229,7 +213,6 @@ export type ListFoodsQuery = {
       protein: string,
       carbohydrate: string,
       DietaryFiber: string,
-      checked: boolean,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -246,7 +229,6 @@ export type OnCreateFoodSubscription = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -261,7 +243,6 @@ export type OnUpdateFoodSubscription = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -276,7 +257,6 @@ export type OnDeleteFoodSubscription = {
     protein: string,
     carbohydrate: string,
     DietaryFiber: string,
-    checked: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,

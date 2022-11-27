@@ -11,7 +11,6 @@ export const onCreateFood = /* GraphQL */ `
       protein
       carbohydrate
       DietaryFiber
-      checked
       createdAt
       updatedAt
     }
@@ -26,7 +25,6 @@ export const onUpdateFood = /* GraphQL */ `
       protein
       carbohydrate
       DietaryFiber
-      checked
       createdAt
       updatedAt
     }
@@ -41,7 +39,6 @@ export const onDeleteFood = /* GraphQL */ `
       protein
       carbohydrate
       DietaryFiber
-      checked
       createdAt
       updatedAt
     }

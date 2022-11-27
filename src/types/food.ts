@@ -5,5 +5,4 @@ export type Food = {
   protein: string;
   carbohydrate: string;
   DietaryFiber: string;
-  checked: boolean;
 };

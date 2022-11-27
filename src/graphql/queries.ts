@@ -11,7 +11,6 @@ export const getFood = /* GraphQL */ `
       protein
       carbohydrate
       DietaryFiber
-      checked
       createdAt
       updatedAt
     }
@@ -31,7 +30,6 @@ export const listFoods = /* GraphQL */ `
         protein
         carbohydrate
         DietaryFiber
-        checked
         createdAt
         updatedAt
       }

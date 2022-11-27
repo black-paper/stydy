@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { createFood, deleteFood } from "./graphql/mutations";
@@ -16,12 +16,13 @@ const initialState: Food = {
   protein: "",
   carbohydrate: "",
   DietaryFiber: "",
-  checked: false,
 };
 
-const App: React.VFC = () => {
+const App: React.VFC = memo(() => {
   const [formState, setFormState] = useState(initialState);
   const [foods, setFoods] = useState<Food[]>([]);
+  const [checked, setChecked] = useState<boolean[]>([]);
+  // checkedはString配列で、配列内にidを入れる。チェクボックスの方では、idをcheckedに含んでいるかで判断できる。
 
   useEffect(() => {
     fetchFoods();
@@ -39,6 +40,7 @@ const App: React.VFC = () => {
       if (foodData.data?.listFoods?.items) {
         const foods = foodData.data.listFoods.items as Food[];
         setFoods(foods);
+        setChecked(Array.from({ length: foods.length }, () => false));
       }
     } catch (err) {
       console.log("error fetching foods", err);
@@ -68,31 +70,26 @@ const App: React.VFC = () => {
     }
   };
   // チェクボックスつけたらフラグも立てる
-  const checkboxHandler = (checked: boolean, index: number) => {
-    // indexをもとにフラグたてた後のFood配列を作成
-    const newFoods: Food[] = foods.map((d, i) => {
-      if (i === index) {
-        return {
-          id: d.id,
-          name: d.name,
-          energy: d.energy,
-          protein: d.protein,
-          carbohydrate: d.carbohydrate,
-          DietaryFiber: d.DietaryFiber,
-          checked: checked,
-        } as Food;
-      }
-      return d;
-    });
-    setFoods(newFoods);
+  const checkboxHandler = (index: number) => {
+    setChecked(checked.slice().splice(index, 1, !checked[index]));
   };
 
   // 食べ物削除機能作る
   const removeFood = async () => {
     try {
       console.log("removeFood!");
+      console.log("checked", checked);
       // チェックフラグ立ってるデータをフィルタリングして
-      const checkFoods = foods.filter((food) => food.checked);
+      const checkFoods = foods
+        .slice()
+        .map((food, i) => {
+          if (checked[i]) {
+            return food;
+          }
+          return undefined;
+        })
+        .filter((d): d is Exclude<typeof d, undefined> => d !== undefined);
+      console.log("checkFood", checkFoods);
       // そのデータを除いたデータをStateにセット
       // フラグ立ってたデータをDynamoDBからも削除
       checkFoods.map(async (food) => {
@@ -100,12 +97,19 @@ const App: React.VFC = () => {
           graphqlOperation(deleteFood, { input: food })
         )) as GraphQLResult<Food>;
       });
-      // setFoods(foods.filter((food) => !food.checked));
+      setFoods(checkFoods);
     } catch (err) {
       console.log("error removing food:", err);
     }
   };
-  console.log("render");
+
+  // TODO:食べ物データをもとにLambdaを使ってなんかやる
+  // TODO:ここでそのLambda関数を呼べるか？
+  // APIGateway<->Lambda<->DynamoDB
+  // まずLambda関数書く
+  // 次にAPIGatewayの設定する
+  // React側で呼び出しする
+
   return (
     <div style={styles.container}>
       <h2>Food Manager</h2>
@@ -155,8 +159,8 @@ const App: React.VFC = () => {
         <div key={food.id ? food.id : index} style={styles.food}>
           <input
             type={"checkbox"}
-            checked={food.checked}
-            onChange={() => checkboxHandler(!food.checked, index)}
+            checked={checked[index]}
+            onChange={() => checkboxHandler(index)}
           />
           <p style={styles.foodId}>Id: {food.id}</p>
           <p style={styles.foodName}>Name: {food.name}</p>
@@ -168,7 +172,7 @@ const App: React.VFC = () => {
       ))}
     </div>
   );
-};
+});
 
 const styles: {
   [key: string]: React.CSSProperties;
