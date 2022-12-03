@@ -7,7 +7,6 @@ import { ListFoodsQuery, CreateFoodInput as Food } from "./API";
 import awsExports from "./aws-exports";
 import { GraphQLResult } from "@aws-amplify/api";
 // import { Food } from "./types/food";
-import axios from "axios";
 
 Amplify.configure(awsExports);
 
@@ -24,8 +23,6 @@ const App: React.VFC = memo(() => {
   const [formState, setFormState] = useState(initialState);
   const [foods, setFoods] = useState<Food[]>([]);
   const [checked, setChecked] = useState<boolean[]>([]);
-  const baseURL =
-    "https://pzdwe000nd.execute-api.us-west-1.amazonaws.com/study7c9c3b15-canary";
   // checkedはString配列で、配列内にidを入れる。チェクボックスの方では、idをcheckedに含んでいるかで判断できる。
 
   useEffect(() => {
@@ -38,19 +35,6 @@ const App: React.VFC = memo(() => {
 
   const fetchFoods = async () => {
     try {
-      // await axios
-      //   .get(baseURL)
-      //   .then((response) => {
-      //     console.log("success", response.data);
-      //   })
-      //   .catch((err) => console.warn("error!!!!", err));
-      fetch(baseURL, { method: "GET" })
-        .then((res) => console.log("success", res))
-        // .then((res) => res.json())
-        // .then((data) => {
-        //   console.log(JSON.stringify(data, undefined, 2));
-        // });
-        .catch((err) => console.warn("error!!!!", err));
       const foodData = (await API.graphql(
         graphqlOperation(listFoods)
       )) as GraphQLResult<ListFoodsQuery>;

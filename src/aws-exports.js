@@ -7,7 +7,7 @@ const awsmobile = {
     "https://dul7gbxqgvbfhk5ds3di5bfgwa.appsync-api.us-west-1.amazonaws.com/graphql",
   aws_appsync_region: "us-west-1",
   aws_appsync_authenticationType: "API_KEY",
-  aws_appsync_apiKey: "da2-him5qoqcunexbeubalpuhhrpvy",
+  aws_appsync_apiKey: "da2-scnmysmsljgz7pivnooiehmb5u",
   aws_dynamodb_all_tables_region: "us-west-1",
   aws_dynamodb_table_schemas: [
     {
