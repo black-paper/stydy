@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "study",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-12-03T06:55:19.856Z"
 }
