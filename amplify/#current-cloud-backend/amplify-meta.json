@@ -29,7 +29,7 @@
         },
         "GraphQLAPIIdOutput": "uwofa3zxprg2hjigrxho3did44",
         "GraphQLAPIEndpointOutput": "https://dul7gbxqgvbfhk5ds3di5bfgwa.appsync-api.us-west-1.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-scnmysmsljgz7pivnooiehmb5u"
+        "GraphQLAPIKeyOutput": "da2-64svsmz2vvdelauujqfnhbdz44"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-study-dev-225151-deployment/amplify-cfn-templates/api/cloudformation-template.json",
@@ -68,7 +68,10 @@
         {
           "category": "api",
           "resourceName": "study",
-          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput"]
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ]
         }
       ],
       "lastBuildTimeStamp": "2022-11-27T11:49:18.155Z",
@@ -103,14 +106,20 @@
       "frontendAuthConfig": {
         "socialProviders": [],
         "usernameAttributes": [],
-        "signupAttributes": ["EMAIL"],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
-        "mfaTypes": ["SMS"],
-        "verificationMechanisms": ["EMAIL"]
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-study-dev-225151-deployment/amplify-cfn-templates/auth/study4ed6c8bf-cloudformation-template.json",
